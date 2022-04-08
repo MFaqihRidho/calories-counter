@@ -1,20 +1,19 @@
 <template>
     <nav
-        class="flex flex-col bg-white h-screen py-10 absolute w-20 items-center justify-start gap-16"
+        class="flex md:flex-col flex-row bg-white shadow-[0_-5px_16px_0_rgba(186,176,206,0.2)] md:shadow-lg md:h-screen py-10 z-50 fixed w-screen h-10 bottom-0 md:w-20 items-center justify-center md:justify-start md:gap-16"
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-10 w-10 text-gray-400"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+            class="w-10 h-10 hidden md:block"
+            viewBox="0 0 48 48"
         >
-            <path
-                fill-rule="evenodd"
-                d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.343c2.673 0 4.012-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187a1.993 1.993 0 00-.114-.035l1.063-1.063A3 3 0 009 8.172z"
-                clip-rule="evenodd"
+            <polygon fill="#81c784" points="23.987,17 18.734,8 2.974,8 23.987,44 45,8 29.24,8" />
+            <polygon
+                fill="#455a64"
+                points="29.24,8 23.987,17 18.734,8 11.146,8 23.987,30 36.828,8"
             />
         </svg>
-        <div class="flex flex-col gap-7">
+        <div class="flex md:flex-col flex-row gap-14 md:gap-10">
             <router-link to="/" active-class="active" class="text-gray-400" exact>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

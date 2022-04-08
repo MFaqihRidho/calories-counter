@@ -12,7 +12,4 @@ import Layout from './components/Layout.vue'
 </template>
 
 <style scoped>
-.active {
-  color: white;
-}
 </style>
