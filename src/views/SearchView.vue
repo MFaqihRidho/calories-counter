@@ -2,13 +2,12 @@
 import Layout from '../components/Layout.vue';
 import meal from '../components/mini components/meal.vue';
 import axios from 'axios'
-import router from '../router';
 </script>
 
 <template>
     <Layout title="Find Your Meal">
         <div class="w-full flex flex-col md:py-10 py-5">
-            <div class="mb-3 xl:w-96">
+            <div class="mb-3 lg:w-96">
                 <div class="input-group relative flex-row flex items-stretch w-full mb-4">
                     <input
                         type="search"
@@ -22,7 +21,7 @@ import router from '../router';
                     />
                     <button
                         v-on:click="fetchData()"
-                        class="btn inline-block px-6 py-2.5 bg-primary text-white font-medium text-xs leading-tight uppercase shadow-md hover:bg-secondary hover:shadow-lg rounded-r focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out items-center"
+                        class="inline-block px-6 py-2.5 bg-primary text-white font-medium text-xs leading-tight uppercase shadow-md hover:bg-secondary hover:shadow-lg rounded-r focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-200 ease-in-out items-center"
                         type="button"
                         id="button-addon2"
                     >
@@ -48,7 +47,7 @@ import router from '../router';
                 <p class="text-xl font-bold text-red-700">{{ errorValue }}</p>
             </div>
             <div v-if="success" class="flex w-full gap-5 flex-col md:flex-row">
-                <div class="flex flex-col gap-5 w-full">
+                <div v-if="data?.common?.length > 0" class="flex flex-col gap-5 w-full">
                     <h1 class="text-2xl font-semibold mb-2">Common</h1>
                     <meal
                         :key="item.food_name"
@@ -60,7 +59,10 @@ import router from '../router';
                         @click.prevent="handleClickDetailsCommon(item.food_name)"
                     ></meal>
                 </div>
-                <div class="flex flex-col gap-5 w-full">
+                <div v-else>
+                    <h1 class="text-2xl font-semibold text-red-400 mb-2">Common Food Not Found</h1>
+                </div>
+                <div v-if="data?.branded?.length > 0" class="flex flex-col gap-5 w-full">
                     <h1 class="text-2xl font-semibold mb-2">Branded</h1>
                     <meal
                         v-for="item in data?.branded"
@@ -71,6 +73,9 @@ import router from '../router';
                         :haveDelete="false"
                         @click.prevent="handleClickDetailsBranded(item.nix_item_id)"
                     ></meal>
+                </div>
+                <div v-else>
+                    <h1 class="text-2xl font-semibold text-red-400 mb-2">Branded Food Not Found</h1>
                 </div>
             </div>
         </div>
@@ -93,7 +98,6 @@ export default {
                 this.data = res.data
                 this.error = false
                 this.success = true
-                console.log(this.data)
             }).catch((err) => {
                 this.error = true
                 this.errorValue = err
@@ -102,18 +106,7 @@ export default {
             this.value = ""
         },
         handleClickDetailsCommon(value) {
-            console.log(value)
-            const params = { query: `1g ${value}` };
-            axios.post(`https://trackapi.nutritionix.com/v2/natural/nutrients`, params, {
-                headers: {
-                    'x-app-id': "9ff7947b",
-                    'x-app-key': "50c66e23b3793fd3558d8af37c07c910",
-                },
-            }).then((res) => {
-                console.log(res)
-            }).catch((err) => {
-                console.log(err)
-            })
+            this.$router.push(`/common/${value}`)
         },
         handleClickDetailsBranded(value) {
             console.log(value)

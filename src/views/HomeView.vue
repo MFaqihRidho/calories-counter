@@ -1,6 +1,8 @@
 <script setup>
 import Layout from '../components/Layout.vue';
 import meal from '../components/mini components/meal.vue';
+import primaryButton from '../components/mini components/primaryButton.vue';
+import nutritionTable from '../components/mini components/nutritionTable.vue';
 </script>
 
 <template>
@@ -19,38 +21,20 @@ import meal from '../components/mini components/meal.vue';
                 </p>
               </div>
             </div>
-            <div
-              class="w-full rounded h-[80%] px-10 text-gray-200 justify-center justify-items-center items-center bg-secondary grid grid-cols-2"
-            >
-              <div>
-                <p class="text-xl text-gray-200">Proteins</p>
-                <p class="text-xl text-gray-100">
-                  <span class="text-4xl font-bold">10</span>
-                  gr
-                </p>
-              </div>
-              <div>
-                <p class="text-xl text-gray-200">Carbs</p>
-                <p class="text-xl text-gray-100">
-                  <span class="text-4xl font-bold">10</span>
-                  gr
-                </p>
-              </div>
-              <div>
-                <p class="text-xl text-gray-200">Fat</p>
-                <p class="text-xl text-gray-100">
-                  <span class="text-4xl font-bold">10</span>
-                  gr
-                </p>
-              </div>
-              <div>
-                <p class="text-xl text-gray-200">Sugar</p>
-                <p class="text-xl text-gray-100">
-                  <span class="text-4xl font-bold">10</span>
-                  gr
-                </p>
-              </div>
-            </div>
+            <nutritionTable
+              firstNutrition="Proteins"
+              firstAmount="10"
+              firstUnit="gr"
+              secondNutrition="Carbs"
+              secondAmount="10"
+              secondUnit="gr"
+              thirdNutrition="Fat"
+              thirdAmount="10"
+              thirdUnit="gr"
+              fourthNutrition="Fat"
+              fourthAmount="10"
+              fourthUnit="gr"
+            ></nutritionTable>
           </div>
         </div>
 
@@ -72,9 +56,7 @@ import meal from '../components/mini components/meal.vue';
               :deleteMeal="deleteMeal"
             ></meal>
           </div>
-          <button
-            class="bg-primary px-5 py-1 rounded font-semibold text-2xl text-white self-center"
-          >Clear</button>
+          <primaryButton title="clear"></primaryButton>
         </div>
       </div>
     </div>
