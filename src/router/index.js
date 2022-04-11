@@ -4,6 +4,7 @@ import AboutView from "../views/AboutView.vue";
 import SearchView from "../views/SearchView.vue";
 import SettingView from "../views/SettingView.vue";
 import CommonView from "../views/CommonView.vue";
+import BrandedView from "../views/BrandedView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
             path: "/common/:id",
             name: "common food",
             component: CommonView,
+        },
+        {
+            path: "/branded/:id",
+            name: "branded food",
+            component: BrandedView,
         },
     ],
 });
