@@ -14,7 +14,7 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
         <div class="w-full flex flex-col gap-5">
           <h1 class="text-xl font-semibold">Your Calories</h1>
           <div class="flex lg:flex-row flex-col items-center">
-            <div class="w-1/2 text-gray-800 h-64 rotate-180 relative">
+            <div class="w-1/2 h-64 rotate-180 relative">
               <div
                 class="
                   w-full
@@ -36,7 +36,7 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
               >
                 <p>Goal 1000 Cal</p>
                 <p>
-                  <span class="text-4xl font-bold">100</span>
+                  <span class="text-4xl font-bold">{{}}</span>
                   Cal
                 </p>
               </div>
@@ -62,18 +62,15 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
           <h1 class="text-xl font-semibold">Your Meals</h1>
           <div class="flex w-full flex-col gap-3">
             <meal
-              title="tempeh"
-              portion="100gr"
-              calorie="20"
-              haveDelete="true"
-              :onclick="deleteMeal"
-            ></meal>
-            <meal
-              title="tempeh"
-              portion="100gr"
-              calorie="20"
-              haveDelete="true"
-              :deleteMeal="deleteMeal"
+              v-for="item in data"
+              :key="item.name"
+              :title="item.name"
+              :image="item.photo"
+              :portion="`${item.serving} ${item.servingUnit}`"
+              :calorie="parseInt(item.calorie)"
+              :haveDelete="true"
+              :idMeal="item.id"
+              @deleteMeal="deleteMeal"
             ></meal>
           </div>
           <primaryButton title="clear"></primaryButton>
@@ -84,9 +81,17 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
 
 <script>
 export default {
+  data() {
+    return {
+      data: JSON.parse(localStorage.getItem("common meals")),
+    };
+  },
   methods: {
-    deleteMeal() {
-      console.log("meals");
+    deleteMeal(id) {
+      // const lastData = JSON.parse(localStorage.getItem("common meals"));
+      // const dataALl = lastData.filter((data) => data.id !== id);
+      // localStorage.setItem("common meals", JSON.stringify(dataALl));
+      console.log(this.data.map((a) => a.calorie.reduce((a, b) => a + b)));
     },
   },
 };

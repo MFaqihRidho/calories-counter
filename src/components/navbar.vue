@@ -5,8 +5,10 @@
       md:flex-col
       flex-row
       bg-white
+      dark:bg-black
       shadow-[0_-5px_16px_0_rgba(186,176,206,0.2)]
       md:shadow-lg md:h-screen
+      dark:shadow-gray-500
       py-10
       z-50
       fixed

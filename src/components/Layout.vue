@@ -1,14 +1,15 @@
 <template>
   <div
     class="
+      overflow-hidden
       md:ml-20
       dark:bg-black
       px-5
       md:px-10
       py-5
-      mb-16
+      pb-24
       min-h-screen
-      md:mb-10 md:py-10
+      md:py-10
       text-gray-700
       dark:text-gray-300
     "

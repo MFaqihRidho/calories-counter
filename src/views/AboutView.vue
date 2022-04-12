@@ -10,10 +10,27 @@ import Layout from "../components/Layout.vue";
         purpose of study and try Vue js
       </p>
       <div
-        className="flex flex-col md:items-start items-center md:justify-start justify-center w-full mt-10 text-center"
+        class="
+          flex flex-col
+          md:items-start
+          items-center
+          md:justify-start
+          justify-center
+          w-full
+          mt-10
+          text-center
+        "
       >
         <div
-          className="flex items-center md:justify-start justify-center w-full gap-3 py-3"
+          class="
+            flex
+            items-center
+            md:justify-start
+            justify-center
+            w-full
+            gap-3
+            py-3
+          "
         >
           <a
             target="_blank"
@@ -21,7 +38,7 @@ import Layout from "../components/Layout.vue";
             href="https://www.linkedin.com/in/muhammad-faqih-ridho-082a76234/"
           >
             <svg
-              className="fill-black dark:fill-white"
+              class="fill-black dark:fill-white"
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
               y="0px"
@@ -41,7 +58,7 @@ import Layout from "../components/Layout.vue";
             href="https://github.com/MFaqihRidho"
           >
             <svg
-              className="fill-black dark:fill-white"
+              class="fill-black dark:fill-white"
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
               y="0px"
@@ -61,7 +78,7 @@ import Layout from "../components/Layout.vue";
             href="https://www.instagram.com/mfaqihridho/?hl=en"
           >
             <svg
-              className="fill-black dark:fill-white"
+              class="fill-black text-white dark:fill-white"
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
               y="0px"
@@ -76,10 +93,10 @@ import Layout from "../components/Layout.vue";
             </svg>
           </a>
         </div>
-        <h1 className="text-xl">
+        <h1 class="text-xl">
           POWERED BY
           <a
-            className="underline uppercase"
+            class="uppercase"
             target="_blank"
             rel="noreferrer"
             href="https://www.nutritionix.com/"
@@ -92,3 +109,9 @@ import Layout from "../components/Layout.vue";
   </Layout>
 </template>
 
+<style scoped>
+.icon {
+  color: white !important;
+  fill: white !important;
+}
+</style>

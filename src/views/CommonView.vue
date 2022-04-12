@@ -10,7 +10,7 @@ import nutritionInformation from "../components/mini components/nutritionInforma
   <Layout :title="$route.params.id">
     <div class="py-10 w-full flex flex-col gap-10">
       <div class="w-full flex lg:flex-row flex-col items-center gap-5">
-        <img class="w-28" :src="data?.photo?.thumb" :alt="data?.food_name" />
+        <img class="w-28" :src="photo" :alt="name" />
         <div class="lg:w-96 mb-3 md:mb-0">
           <div class="input-group relative flex-row flex items-stretch w-full">
             <input
@@ -74,20 +74,24 @@ import nutritionInformation from "../components/mini components/nutritionInforma
             </select>
           </div>
         </div>
-        <primaryButton title="add" class="capitalize text-xl"></primaryButton>
+        <primaryButton
+          v-on:click="submitMeals"
+          title="add"
+          class="capitalize text-xl"
+        ></primaryButton>
         <div v-if="servingUnit === 'g'" class="w-full">
           <nutritionTable
             firstNutrition="Calorie"
-            :firstAmount="(data?.nf_calories * amount).toFixed(2)"
+            :firstAmount="(calorie * amount).toFixed(2)"
             firstUnit="cal"
             secondNutrition="Carbs"
-            :secondAmount="(data?.nf_total_carbohydrate * amount).toFixed(2)"
+            :secondAmount="(carbs * amount).toFixed(2)"
             secondUnit="gr"
             thirdNutrition="Protein"
-            :thirdAmount="(data?.nf_protein * amount).toFixed(2)"
+            :thirdAmount="(protein * amount).toFixed(2)"
             thirdUnit="gr"
             fourthNutrition="Fat"
-            :fourthAmount="(data?.nf_total_fat * amount).toFixed(2)"
+            :fourthAmount="(fat * amount).toFixed(2)"
             fourthUnit="gr"
           >
           </nutritionTable>
@@ -95,18 +99,16 @@ import nutritionInformation from "../components/mini components/nutritionInforma
         <div v-else class="w-full">
           <nutritionTable
             firstNutrition="Calorie"
-            :firstAmount="(data?.nf_calories * amount * 28.3495).toFixed(2)"
+            :firstAmount="(calorie * amount * 28.3495).toFixed(2)"
             firstUnit="cal"
             secondNutrition="Carbs"
-            :secondAmount="
-              (data?.nf_total_carbohydrate * amount * 28.3495).toFixed(2)
-            "
+            :secondAmount="(carbs * amount * 28.3495).toFixed(2)"
             secondUnit="gr"
             thirdNutrition="Protein"
-            :thirdAmount="(data?.nf_protein * amount * 28.3495).toFixed(2)"
+            :thirdAmount="(protein * amount * 28.3495).toFixed(2)"
             thirdUnit="gr"
             fourthNutrition="Fat"
-            :fourthAmount="(data?.nf_total_fat * amount * 28.3495).toFixed(2)"
+            :fourthAmount="(fat * amount * 28.3495).toFixed(2)"
             fourthUnit="gr"
           >
           </nutritionTable>
@@ -114,18 +116,18 @@ import nutritionInformation from "../components/mini components/nutritionInforma
       </div>
       <div v-if="servingUnit === 'g'" class="w-full">
         <nutritionInformation
-          :sugar="(data?.nf_sugars * amount).toFixed(2)"
-          :cholesterol="(data?.nf_cholesterol * amount).toFixed(2)"
-          :sodium="(data?.nf_sodium * amount).toFixed(2)"
-          :potassium="(data?.nf_potassium * amount).toFixed(2)"
+          :sugar="(sugar * amount).toFixed(2)"
+          :cholesterol="(cholesterol * amount).toFixed(2)"
+          :sodium="(sodium * amount).toFixed(2)"
+          :potassium="(potassium * amount).toFixed(2)"
         ></nutritionInformation>
       </div>
       <div v-else class="w-full">
         <nutritionInformation
-          :sugar="(data?.nf_sugars * amount * 28.3495).toFixed(2)"
-          :cholesterol="(data?.nf_cholesterol * amount * 28.3495).toFixed(2)"
-          :sodium="(data?.nf_sodium * amount * 28.3495).toFixed(2)"
-          :potassium="(data?.nf_potassium * amount * 28.3495).toFixed(2)"
+          :sugar="(sugar * amount * 28.3495).toFixed(2)"
+          :cholesterol="(cholesterol * amount * 28.3495).toFixed(2)"
+          :sodium="(sodium * amount * 28.3495).toFixed(2)"
+          :potassium="(potassium * amount * 28.3495).toFixed(2)"
         ></nutritionInformation>
       </div>
     </div>
@@ -135,7 +137,22 @@ import nutritionInformation from "../components/mini components/nutritionInforma
 <script>
 export default {
   data() {
-    return { data: [], amount: 1, servingUnit: "oz" };
+    return {
+      dataGram: {},
+      dataOz: {},
+      amount: 1,
+      servingUnit: "oz",
+      calorie: 0,
+      protein: 0,
+      carbs: 0,
+      fat: 0,
+      sugar: 0,
+      cholesterol: 0,
+      sodium: 0,
+      potassium: 0,
+      name: "",
+      photo: "",
+    };
   },
   mounted() {
     const params = { query: `1g ${this.$route.params.id}` };
@@ -147,8 +164,16 @@ export default {
         },
       })
       .then((res) => {
-        this.data = res.data.foods[0];
-        console.log(res.data.foods[0]);
+        this.name = res.data.foods[0].food_name;
+        this.photo = res.data.foods[0].photo.thumb;
+        this.calorie = res.data.foods[0].nf_calories;
+        this.protein = res.data.foods[0].nf_protein;
+        this.carbs = res.data.foods[0].nf_total_carbohydrate;
+        this.fat = res.data.foods[0].nf_total_fat;
+        this.sugar = res.data.foods[0].nf_sugars;
+        this.cholesterol = res.data.foods[0].nf_cholesterol;
+        this.sodium = res.data.foods[0].nf_sodium;
+        this.potassium = res.data.foods[0].nf_potassium;
       })
       .catch((err) => {
         console.log(err);
@@ -157,7 +182,64 @@ export default {
   methods: {
     changeValue(value) {
       this.servingUnit = value;
-      console.log(this.servingUnit);
+    },
+    submitMeals() {
+      this.dataGram = {
+        name: this.name,
+        photo: this.photo,
+        serving: this.amount,
+        servingUnit: this.servingUnit,
+        calorie: parseFloat((this.calorie * this.amount).toFixed(2)),
+        protein: parseFloat((this.protein * this.amount).toFixed(2)),
+        carbs: parseFloat((this.carbs * this.amount).toFixed(2)),
+        fat: parseFloat((this.fat * this.amount).toFixed(2)),
+        cholesterol: parseFloat((this.cholesterol * this.amount).toFixed(2)),
+        sodium: parseFloat((this.sodium * this.amount).toFixed(2)),
+        potassium: parseFloat((this.potassium * this.amount).toFixed(2)),
+        sugar: parseFloat((this.sugar * this.amount).toFixed(2)),
+        id: +new Date(),
+      };
+      this.dataOz = {
+        name: this.name,
+        photo: this.photo,
+        serving: this.amount,
+        servingUnit: this.servingUnit,
+        calorie: parseFloat((this.calorie * this.amount * 28.3495).toFixed(2)),
+        protein: parseFloat((this.protein * this.amount * 28.3495).toFixed(2)),
+        carbs: parseFloat((this.carbs * this.amount * 28.3495).toFixed(2)),
+        fat: parseFloat((this.fat * this.amount * 28.3495).toFixed(2)),
+        cholesterol: parseFloat(
+          (this.cholesterol * this.amount * 28.3495).toFixed(2)
+        ),
+        sodium: parseFloat((this.sodium * this.amount * 28.3495).toFixed(2)),
+        potassium: parseFloat(
+          (this.potassium * this.amount * 28.3495).toFixed(2)
+        ),
+        sugar: parseFloat((this.sugar * this.amount * 28.3495).toFixed(2)),
+        id: +new Date(),
+      };
+      if (localStorage.getItem("common meals") === null) {
+        if (this.servingUnit === "g") {
+          localStorage.setItem("common meals", JSON.stringify([this.dataGram]));
+        } else {
+          localStorage.setItem("common meals", JSON.stringify([this.dataOz]));
+        }
+      } else {
+        console.log("else");
+        if (this.servingUnit === "g") {
+          const lastData = JSON.parse(localStorage.getItem("common meals"));
+          localStorage.setItem(
+            "common meals",
+            JSON.stringify([...lastData, this.dataGram])
+          );
+        } else {
+          const lastData = JSON.parse(localStorage.getItem("common meals"));
+          localStorage.setItem(
+            "common meals",
+            JSON.stringify([...lastData, this.dataOz])
+          );
+        }
+      }
     },
   },
 };
