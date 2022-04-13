@@ -36,7 +36,7 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
               >
                 <p>Goal 1000 Cal</p>
                 <p>
-                  <span class="text-4xl font-bold">{{}}</span>
+                  <span class="text-4xl font-bold">{{ calorie }}</span>
                   Cal
                 </p>
               </div>
@@ -84,14 +84,27 @@ export default {
   data() {
     return {
       data: JSON.parse(localStorage.getItem("common meals")),
+      calorie: [],
     };
+  },
+  mounted() {
+    const arr = [];
+    if (
+      localStorage.getItem("common meals") === null ||
+      JSON.parse(localStorage.getItem("common meals")).length === 0
+    ) {
+      this.calorie = 0;
+    } else {
+      this.data.map((data) => arr.push(data.calorie));
+      this.calorie = arr.reduce((a, b) => a + b);
+    }
   },
   methods: {
     deleteMeal(id) {
-      // const lastData = JSON.parse(localStorage.getItem("common meals"));
-      // const dataALl = lastData.filter((data) => data.id !== id);
-      // localStorage.setItem("common meals", JSON.stringify(dataALl));
-      console.log(this.data.map((a) => a.calorie.reduce((a, b) => a + b)));
+      const lastData = JSON.parse(localStorage.getItem("common meals"));
+      const dataALl = lastData.filter((data) => data.id !== id);
+      localStorage.setItem("common meals", JSON.stringify(dataALl));
+      window.location.reload();
     },
   },
 };
