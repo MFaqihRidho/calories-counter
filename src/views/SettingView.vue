@@ -88,7 +88,10 @@ import goalModal from "../components/mini components/goalModal.vue";
         </template>
       </choose>
     </div>
-    <goalModal :showModal="showModal"></goalModal>
+    <goalModal
+      :closeModal="handleCloseModal"
+      :showModal="showModal"
+    ></goalModal>
   </Layout>
 </template>
 
@@ -112,6 +115,9 @@ export default {
     handleShowModal() {
       this.showModal = true;
       console.log(this.showModal);
+    },
+    handleCloseModal() {
+      this.showModal = false;
     },
   },
 };
