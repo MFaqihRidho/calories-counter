@@ -1,7 +1,7 @@
 <script setup>
 import Layout from "../components/Layout.vue";
 import choose from "../components/mini components/choose.vue";
-import goalModal from "../components/mini components/goalModal.vue";
+import goalModal from "../components/goalModal.vue";
 </script>
 
 <template>
@@ -114,7 +114,6 @@ export default {
     },
     handleShowModal() {
       this.showModal = true;
-      console.log(this.showModal);
     },
     handleCloseModal() {
       this.showModal = false;

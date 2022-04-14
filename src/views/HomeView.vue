@@ -16,14 +16,15 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
           <div class="flex lg:flex-row flex-col items-center">
             <div class="w-1/2 h-64 rotate-180 relative">
               <div
-                class="
-                  w-full
-                  h-[10%]
-                  absolute
-                  md:rounded-r
-                  rounded-b
-                  bg-primary
-                "
+                :style="{
+                  height: `${
+                    parseInt((calorie / goal) * 100) > 100
+                      ? 100
+                      : parseInt((calorie / goal) * 100)
+                  }%`,
+                }"
+                v-bind:class="{ 'bg-rose-500': calorie > goal }"
+                class="w-full absolute md:rounded-r rounded-b bg-primary"
               ></div>
               <div
                 class="
@@ -34,11 +35,19 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
                   justify-center
                 "
               >
-                <p>Goal 1000 Cal</p>
+                <p>Goal {{ goal }} Cal</p>
                 <p>
-                  <span class="text-4xl font-bold">{{ calorie }}</span>
+                  <span class="text-4xl font-bold">{{
+                    parseInt(calorie)
+                  }}</span>
                   Cal
                 </p>
+                <div v-if="calorie > goal">
+                  <p>Too Much Calorie</p>
+                </div>
+                <div v-else>
+                  <p>{{ parseInt(goal - calorie) }} cal remaining</p>
+                </div>
               </div>
             </div>
             <nutritionTable
@@ -85,9 +94,11 @@ export default {
     return {
       data: JSON.parse(localStorage.getItem("common meals")),
       calorie: [],
+      goal: JSON.parse(localStorage.getItem("goal")),
     };
   },
   mounted() {
+    console.log(this.data[0]);
     const arr = [];
     if (
       localStorage.getItem("common meals") === null ||
