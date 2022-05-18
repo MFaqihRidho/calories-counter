@@ -8,9 +8,9 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
-    "crypto-js": "^4.1.1",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "yarn": "^1.22.18"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.2",

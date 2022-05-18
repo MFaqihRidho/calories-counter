@@ -1,6 +1,7 @@
 <script setup>
 import Layout from "../components/Layout.vue";
 import meal from "../components/mini components/meal.vue";
+import Loading from "../components/mini components/loading.vue";
 import axios from "axios";
 </script>
 
@@ -90,7 +91,24 @@ import axios from "axios";
       <div v-if="error === true">
         <p class="text-xl font-bold text-red-700">{{ errorValue }}</p>
       </div>
-      <div v-if="success" class="flex w-full gap-5 flex-col md:flex-row">
+      <div v-if="loading" class="flex w-full gap-5 flex-col md:flex-row">
+        <div class="flex flex-col gap-5 w-full">
+          <Loading></Loading>
+          <Loading></Loading>
+          <Loading></Loading>
+          <Loading></Loading>
+        </div>
+        <div class="flex flex-col gap-5 w-full">
+          <Loading></Loading>
+          <Loading></Loading>
+          <Loading></Loading>
+          <Loading></Loading>
+        </div>
+      </div>
+      <div
+        v-if="success && loading === false"
+        class="flex w-full gap-5 flex-col md:flex-row"
+      >
         <div v-if="data?.common?.length > 0" class="flex flex-col gap-5 w-full">
           <h1 class="text-2xl font-semibold mb-2">Common</h1>
           <meal
@@ -142,10 +160,12 @@ export default {
       error: false,
       errorValue: "",
       success: false,
+      loading: false,
     };
   },
   methods: {
     fetchData() {
+      this.loading = true;
       axios
         .get(
           `https://trackapi.nutritionix.com/v2/search/instant?query=${this.value}`,
@@ -159,12 +179,14 @@ export default {
         .then((res) => {
           this.data = res.data;
           this.error = false;
+          this.loading = false;
           this.success = true;
         })
         .catch((err) => {
           this.error = true;
           this.errorValue = err;
           this.data = [];
+          this.loading = false;
         });
       this.value = "";
     },

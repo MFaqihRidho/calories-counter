@@ -5,7 +5,7 @@
       md:flex-col
       flex-row
       bg-white
-      dark:bg-black
+      dark:bg-gray-900
       shadow-[0_-5px_16px_0_rgba(186,176,206,0.2)]
       md:shadow-lg md:h-screen
       dark:shadow-gray-500

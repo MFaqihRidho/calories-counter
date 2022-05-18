@@ -35,18 +35,20 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
                   justify-center
                 "
               >
-                <p>Goal {{ goal }} Cal</p>
-                <p>
-                  <span class="text-4xl font-bold">{{
+                <p class="text-black dark:text-white">Goal {{ goal }} Cal</p>
+                <p class="text-black dark:text-white">
+                  <span class="text-4xl font-bold text-black dark:text-white">{{
                     parseInt(calorie)
                   }}</span>
                   Cal
                 </p>
                 <div v-if="calorie > goal">
-                  <p>Too Much Calorie</p>
+                  <p class="text-black dark:text-white">Too Much Calorie</p>
                 </div>
                 <div v-else>
-                  <p>{{ parseInt(goal - calorie) }} cal remaining</p>
+                  <p class="text-black dark:text-white">
+                    {{ parseInt(goal - calorie) }} cal remaining
+                  </p>
                 </div>
               </div>
             </div>
@@ -69,7 +71,7 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
 
         <div class="w-full flex flex-col gap-5">
           <h1 class="text-xl font-semibold">Your Meals</h1>
-          <div class="flex w-full flex-col gap-3">
+          <div class="flex w-full flex-col gap-3" v-if="data">
             <meal
               v-for="item in data"
               :key="item.name"
@@ -82,7 +84,7 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
               @deleteMeal="deleteMeal"
             ></meal>
           </div>
-          <primaryButton title="clear"></primaryButton>
+          <primaryButton v-on:click="clearMeal" title="clear"></primaryButton>
         </div>
       </div></div
   ></Layout>
@@ -98,7 +100,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.data[0]);
     const arr = [];
     if (
       localStorage.getItem("common meals") === null ||
@@ -115,6 +116,10 @@ export default {
       const lastData = JSON.parse(localStorage.getItem("common meals"));
       const dataALl = lastData.filter((data) => data.id !== id);
       localStorage.setItem("common meals", JSON.stringify(dataALl));
+      window.location.reload();
+    },
+    clearMeal() {
+      localStorage.removeItem("common meals");
       window.location.reload();
     },
   },

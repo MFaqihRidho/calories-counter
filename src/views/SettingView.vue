@@ -31,7 +31,7 @@ import goalModal from "../components/goalModal.vue";
               h-10
               px-5
               text-center
-              dark:bg-black
+              dark:bg-gray-900
               bg-white
               border-2 border-gray-400
               rounded-lg
@@ -73,7 +73,7 @@ import goalModal from "../components/goalModal.vue";
               h-10
               px-5
               text-center
-              dark:bg-black
+              dark:bg-gray-900
               bg-white
               border-2 border-gray-400
               rounded-lg

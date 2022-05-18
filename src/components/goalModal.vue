@@ -38,7 +38,7 @@ import primaryButton from "./mini components/primaryButton.vue";
         shadow-xl
         rounded-xl
         h-fit
-        dark:bg-black
+        dark:bg-gray-900
         bg-white
         relative
         dark:shadow-gray-200 dark:shadow-md
@@ -217,7 +217,7 @@ import primaryButton from "./mini components/primaryButton.vue";
             w-full
             h-10
             px-5
-            dark:bg-black
+            dark:bg-gray-900
             bg-white
             outline-none
             appearance-none
@@ -264,7 +264,7 @@ import primaryButton from "./mini components/primaryButton.vue";
             w-full
             h-10
             px-5
-            dark:bg-black
+            dark:bg-gray-900
             bg-white
             outline-none
             appearance-none

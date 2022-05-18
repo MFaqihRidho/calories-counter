@@ -3,7 +3,7 @@
     class="
       overflow-hidden
       md:ml-20
-      dark:bg-black
+      dark:bg-gray-900
       px-5
       md:px-10
       py-5
