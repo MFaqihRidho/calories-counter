@@ -54,16 +54,16 @@ import nutritionTable from "../components/mini components/nutritionTable.vue";
             </div>
             <nutritionTable
               firstNutrition="Proteins"
-              firstAmount="10"
+              :firstAmount="protein.toFixed(2)"
               firstUnit="gr"
               secondNutrition="Carbs"
-              secondAmount="10"
+              :secondAmount="carbs.toFixed(2)"
               secondUnit="gr"
               thirdNutrition="Fat"
-              thirdAmount="10"
+              :thirdAmount="fat.toFixed(2)"
               thirdUnit="gr"
-              fourthNutrition="Fat"
-              fourthAmount="10"
+              fourthNutrition="Sugar"
+              :fourthAmount="sugar.toFixed(2)"
               fourthUnit="gr"
             ></nutritionTable>
           </div>
@@ -95,20 +95,41 @@ export default {
   data() {
     return {
       data: JSON.parse(localStorage.getItem("common meals")),
-      calorie: [],
+      calorie: 0,
+      carbs: 0,
+      protein: 0,
+      fat: 0,
+      sugar: 0,
       goal: JSON.parse(localStorage.getItem("goal")),
     };
   },
   mounted() {
-    const arr = [];
     if (
       localStorage.getItem("common meals") === null ||
       JSON.parse(localStorage.getItem("common meals")).length === 0
     ) {
-      this.calorie = 0;
+      return;
     } else {
-      this.data.map((data) => arr.push(data.calorie));
-      this.calorie = arr.reduce((a, b) => a + b);
+      // Calorie
+      const calorieArray = [];
+      this.data.map((data) => calorieArray.push(data.calorie));
+      this.calorie = calorieArray.reduce((a, b) => a + b);
+      // Carbs
+      const carbsArray = [];
+      this.data.map((data) => carbsArray.push(data.carbs));
+      this.carbs = carbsArray.reduce((a, b) => a + b);
+      // protein
+      const proteinArray = [];
+      this.data.map((data) => proteinArray.push(data.protein));
+      this.protein = proteinArray.reduce((a, b) => a + b);
+      // fat
+      const fatArray = [];
+      this.data.map((data) => fatArray.push(data.fat));
+      this.fat = fatArray.reduce((a, b) => a + b);
+      // sugar
+      const sugarArray = [];
+      this.data.map((data) => sugarArray.push(data.sugar));
+      this.sugar = sugarArray.reduce((a, b) => a + b);
     }
   },
   methods: {
